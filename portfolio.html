@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khushbu — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: #2a2a3d;
+    --accent: #7c6aff;
+    --accent2: #ff6a9e;
+    --accent3: #6affd4;
+    --text: #e8e6f0;
+    --muted: #8884a0;
+    --gold: #f0c060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 20%, rgba(124,106,255,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 80%, rgba(106,255,212,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 60% 30%, rgba(255,106,158,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-content {
+    max-width: 700px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(124,106,255,0.12);
+    border: 1px solid rgba(124,106,255,0.25);
+    color: var(--accent);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: 1.5rem 0 2.5rem;
+    max-width: 520px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #9b6aff);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124,106,255,0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  /* SECTION */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    line-height: 1.15;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+
+  .skill-card:hover::before { transform: scaleX(1); }
+
+  .skill-card:hover {
+    border-color: rgba(124,106,255,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .skill-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-card h3 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .tag:hover {
+    background: rgba(124,106,255,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-start: start;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,106,255,0.03), rgba(255,106,158,0.03));
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-card:hover {
+    border-color: rgba(124,106,255,0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+  }
+
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent3);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 0.7rem; }
+
+  .project-emoji {
+    font-size: 2.5rem;
+    opacity: 0.8;
+    align-self: flex-start;
+  }
+
+  /* EDUCATION */
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .edu-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .edu-info .degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-info .school {
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-info .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .cgpa-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(240,192,96,0.1);
+    border: 1px solid rgba(240,192,96,0.25);
+    color: var(--gold);
+    font-size: 0.78rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-top: 0.8rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* LEADERSHIP */
+  .achievement-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .achievement-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+
+  .achievement-item:hover {
+    border-color: rgba(106,255,212,0.25);
+    transform: translateX(4px);
+  }
+
+  .ach-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .achievement-item p {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .achievement-item p strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    padding: 6rem 3rem;
+  }
+
+  .contact-section .section-label { text-align: center; }
+  .contact-section .section-title { text-align: center; }
+
+  .contact-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.4rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: all 0.3s;
+  }
+
+  .contact-item:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124,106,255,0.2);
+  }
+
+  .contact-item .ci-icon { font-size: 1.1rem; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    margin-bottom: 3rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-emoji { display: none; }
+    .edu-card { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Khushbu</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Available for opportunities</div>
+    <h1>Hi, I'm<br><em>Khushbu</em></h1>
+    <p class="hero-subtitle">
+      Computer Science graduate passionate about building software that makes a difference. Skilled in C/C++, Java, full-stack web development, and Data Structures & Algorithms.
+    </p>
+    <div class="hero-contacts">
+      <a href="mailto:chandelkhushbu773@gmail.com" class="btn btn-primary">✉ Get in touch</a>
+      <a href="https://github.com" target="_blank" class="btn btn-outline">⌥ GitHub</a>
+      <a href="https://linkedin.com" target="_blank" class="btn btn-outline">in LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I work with</div>
+  <h2 class="section-title">Technical Skills</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon" style="background:rgba(124,106,255,0.12);">💻</div>
+      <h3>Languages</h3>
+      <div class="tags">
+        <span class="tag">C</span>
+        <span class="tag">C++</span>
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Java</span>
+        <span class="tag">PHP</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon" style="background:rgba(255,106,158,0.12);">🌐</div>
+      <h3>Web Technologies</h3>
+      <div class="tags">
+         <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">ReactJS</span>
+        <span class="tag">Material UI</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Socket.IO</span>
+       
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon" style="background:rgba(106,255,212,0.12);">🛠️</div>
+      <h3>Tools & Platforms</h3>
+      <div class="tags">
+        <span class="tag">Linux</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">Google Maps API</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon" style="background:rgba(240,192,96,0.12);">📚</div>
+      <h3>Core CS</h3>
+      <div class="tags">
+        <span class="tag">DSA</span>
+        <span class="tag">OOP</span>
+        <span class="tag">Operating Systems</span>
+        <span class="tag">DBMS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">What I've built</div>
+  <h2 class="section-title">Projects</h2>
+
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <div>
+        <div class="project-num">01 / PHP · MySQL</div>
+        <h3>Online Examination Website</h3>
+        <p>A full-featured examination platform with live proctoring, secure login, and cheating prevention to ensure academic integrity. Includes an intuitive admin dashboard for teachers to manage question banks and exam settings, plus automated credential generation and email distribution for students.</p>
+        <div class="tags" style="margin-bottom:1.2rem;">
+          <span class="tag">PHP</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Live Proctoring</span>
+          <span class="tag">Admin Dashboard</span>
+        </div>
+        <a href="https://github.com/KhushbuChandel/Online-Exam-Sys" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-emoji">📝</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div>
+        <div class="project-num">02 / PHP · Google Maps API</div>
+        <h3>Online Carpooling System</h3>
+        <p>A university-focused carpooling platform connecting students for shared rides, promoting cost-efficient and eco-friendly commuting. Integrates Google Maps API for real-time distance calculations and optimized routing between pickup and drop-off locations.</p>
+        <div class="tags" style="margin-bottom:1.2rem;">
+          <span class="tag">PHP</span>
+          <span class="tag">Google Maps API</span>
+          <span class="tag">Real-time Routing</span>
+          <span class="tag">Sustainability</span>
+        </div>
+        <a href="https://github.com/KhushbuChandel/carpooling-sys" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-emoji">🚗</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div>
+        <div class="project-num">03 / Node.js · Socket.IO</div>
+        <h3>Fission Chat</h3>
+        <p>A real-time messaging application built with Node.js and Socket.IO for seamless communication. Features secure user authentication, fully responsive UI, and is optimized for high concurrency and efficient resource utilization under heavy traffic.</p>
+        <div class="tags" style="margin-bottom:1.2rem;">
+          <span class="tag">Node.js</span>
+          <span class="tag">Socket.IO</span>
+          <span class="tag">Real-time</span>
+          <span class="tag">Authentication</span>
+        </div>
+        <a href="https://github.com/KhushbuChandel/Fission_Chat" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-emoji">⚡</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div>
+        <div class="project-num">04 / HTML · CSS · JavaScript</div>
+        <h3>FoodFlow Landing Page</h3>
+        <p>A polished landing page for FoodFlow that highlights fresh meal delivery, vibrant UI design, and mobile-first responsiveness. Built to showcase clean visuals, feature sections, and a smooth user experience for food service audiences.</p>
+        <div class="tags" style="margin-bottom:1.2rem;">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Responsive Design</span>
+          <span class="tag">UX/UI</span>
+        </div>
+        <a href="https://github.com/KhushbuChandel/foodflow-landing-page" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-emoji">🍽️</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic background</div>
+  <h2 class="section-title">Education</h2>
+
+  <div class="edu-card fade-in">
+    <div class="edu-icon">🎓</div>
+    <div class="edu-info">
+      <div class="degree">B.E. in Computer Science</div>
+      <div class="school">Chandigarh University · Mohali, Punjab</div>
+      <div class="meta">Aug 2021 – June 2025</div>
+      <div class="cgpa-badge">⭐ CGPA: 7.49 / 10</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="section-label">Beyond the code</div>
+  <h2 class="section-title">Leadership & Activities</h2>
+
+  <div class="achievement-list">
+    <div class="achievement-item fade-in">
+      <div class="ach-icon">🏆</div>
+      <p>
+        <strong>School House Captain (2017–18)</strong>
+        Led a team of students in academic, cultural, and sports activities, fostering teamwork, discipline, and excellence.
+      </p>
+    </div>
+    <div class="achievement-item fade-in">
+      <div class="ach-icon">💡</div>
+      <p>
+        <strong>100+ DSA Problems Solved</strong>
+        Consistent problem-solver on platforms like LeetCode, sharpening algorithmic thinking and code efficiency.
+      </p>
+    </div>
+    <div class="achievement-item fade-in">
+      <div class="ach-icon">🤝</div>
+      <p>
+        <strong>Student Coordinator — IICC by AICTE & Coding Ninjas</strong>
+        Organized and coordinated a major inter-institutional coding competition, demonstrating event management and leadership skills.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label">Let's connect</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <p style="color:var(--muted); max-width:480px; margin: 0 auto 1rem; font-size:0.95rem;">
+    I'm actively looking for opportunities in software development. Whether you have a role or just want to connect — my inbox is open.
+  </p>
+
+  <div class="contact-grid">
+    <a href="mailto:chandelkhushbu773@gmail.com" class="contact-item">
+      <span class="ci-icon">✉</span>
+      chandelkhushbu773@gmail.com
+    </a>
+    <a href="tel:+916280370189" class="contact-item">
+      <span class="ci-icon">📞</span>
+      +91 62803 70189
+    </a>
+    <a href="https://linkedin.com" target="_blank" class="contact-item">
+      <span class="ci-icon">🔗</span>
+      LinkedIn Profile
+    </a>
+    <a href="https://github.com" target="_blank" class="contact-item">
+      <span class="ci-icon">⌥</span>
+      GitHub
+    </a>
+    <a href="https://leetcode.com" target="_blank" class="contact-item">
+      <span class="ci-icon">🧩</span>
+      LeetCode
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & built with ♥ · Khushbu · Bilaspur, Himachal Pradesh</p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Stagger children in grids
+  document.querySelectorAll('.skills-grid .skill-card, .achievement-list .achievement-item').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 80}ms`;
+  });
+</script>
+</body>
+</html>
